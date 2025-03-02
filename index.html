@@ -4,159 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Create - Container Storage</title>
+    <meta name="description" content="Open Create - An advanced container storage system designed for high performance, scalability, and flexibility. Store and retrieve data efficiently with user and admin versions.">
+    <meta name="keywords" content="Container Storage, Data Storage, High Performance, Scalability, Flexibility, User Storage, Admin Storage">
+    <meta name="author" content="state-NER">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
     <style>
         /* Base Styles */
- 
-:root {
-    --primary-color: #2C3E50;
-    --secondary-color: #3498DB;
-    --accent-color: #2980B9;
-    --background-color: #F8F9FA;
-    --text-color: #2C3E50;
-    --success-color: #27AE60;
-    --border-radius: 12px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #3498DB;
+            --accent-color: #2980B9;
+            --background-color: #F8F9FA;
+            --text-color: #2C3E50;
+            --success-color: #27AE60;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-}
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-.header {
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    color: white;
-    padding: 2rem 0;
-    text-align: center;
-    box-shadow: var(--box-shadow);
-    margin-bottom: 2rem;
-}
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto 100px;
-    background: white;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: transform 0.2s ease;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.2s ease;
+        }
 
-.container:hover {
-    transform: translateY(-2px);
-}
+        .container:hover {
+            transform: translateY(-2px);
+        }
 
-h1, h2, h3 {
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-}
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
 
-h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
 
-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--primary-color);
-}
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
 
-input[type="text"] {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
+        input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-input[type="text"]:focus {
-    border-color: var(--secondary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
+        input[type="text"]:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
 
-button {
-    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+        button {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-}
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
 
-#output {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid var(--secondary-color);
-    font-family: monospace;
-    white-space: pre-wrap;
-}
+        #output {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
 
-.footer {
-    background: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 1.5rem 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    backdrop-filter: blur(5px);
-    background-color: rgba(44, 62, 80, 0.95);
-}
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            backdrop-filter: blur(5px);
+            background-color: rgba(44, 62, 80, 0.95);
+        }
 
-@media (max-width: 768px) {
-    .container {
-        margin: 0 1rem 100px;
-        padding: 1.5rem;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    button {
-        padding: 0.75rem;
-    }
-}
+        @media (max-width: 768px) {
+            .container {
+                margin: 0 1rem 100px;
+                padding: 1.5rem;
+            }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+            h1 {
+                font-size: 2rem;
+            }
 
-#output {
-    animation: fadeIn 0.3s ease-out;
-}
+            button {
+                padding: 0.75rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #output {
+            animation: fadeIn 0.3s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -166,12 +169,14 @@ button:hover {
     <div class="container">
         <h2>Retrieve Data from Containers</h2>
         <form id="retrieveForm">
-            <label for="retrieveContainerName">Container Name:</label>
-            <input type="text" id="retrieveContainerName" name="retrieveContainerName" required><br><br>
-            
-            <label for="retrieveKey">Key:</label>
-            <input type="text" id="retrieveKey" name="retrieveKey" required><br><br>
-            
+            <div class="form-group">
+                <label for="retrieveContainerName">Container Name:</label>
+                <input type="text" id="retrieveContainerName" name="retrieveContainerName" required>
+            </div>
+            <div class="form-group">
+                <label for="retrieveKey">Key:</label>
+                <input type="text" id="retrieveKey" name="retrieveKey" required>
+            </div>
             <button type="submit">Retrieve Data</button>
         </form>
         <div id="output"></div>
