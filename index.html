@@ -1,208 +1,265 @@
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Create - Container Storage</title>
-    <meta name="description" content="Open Create - An advanced container storage system designed for high performance, scalability, and flexibility. Store and retrieve data efficiently with user and [...]">
-    <meta name="keywords" content="Container Storage, Data Storage, High Performance, Scalability, Flexibility, User Storage, Admin Storage">
+    <meta name="description" content="نظام متقدم لتخزين الحاويات بدرجة عالية من الأداء والمرونة.">
+    <meta name="keywords" content="تخزين الحاويات, تخزين البيانات, أداء عالي, مرونة, واجهة مستخدم">
     <meta name="author" content="state-NER">
-    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap">
     <style>
-        /* Base Styles */
+        /* متغيرات الألوان لوضع الظلام والوضع الفاتح */
         :root {
-            --primary-color: #2C3E50;
-            --secondary-color: #3498DB;
-            --accent-color: #2980B9;
-            --background-color: #F8F9FA;
-            --text-color: #2C3E50;
-            --success-color: #27AE60;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --accent-color: #60a5fa;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --success-color: #10b981;
+            --border-radius: 16px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #1e40af;
+            --secondary-color: #2563eb;
+            --accent-color: #3b82f6;
+            --background-color: #1e293b;
+            --text-color: #f8fafc;
+            --success-color: #10b981;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Tajawal', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
-            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
+            background: var(--gradient);
+            padding: 4rem 0 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: var(--background-color);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .logo {
+            left: 2rem;
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto 6rem;
+            background: var(--background-color);
+            border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+        }
+
+        form {
+            padding: 2rem;
+        }
+
+        .form-group {
             margin-bottom: 2rem;
             position: relative;
         }
 
-        .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            height: 50px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            background: white;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            transition: transform 0.2s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-2px);
-        }
-
-        h1, h2, h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
         label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--primary-color);
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--background-color);
+            color: var(--text-color);
         }
 
         input[type="text"]:focus {
-            border-color: var(--secondary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: var(--background-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
         }
 
         button {
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
+            background: var(--gradient);
+            padding: 1rem 2rem;
             border-radius: 8px;
-            font-size: 1rem;
             font-weight: 600;
-            cursor: pointer;
+            letter-spacing: 0.025em;
             transition: all 0.3s ease;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            color: white;
         }
 
-        button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        button:hover::after {
+            left: 150%;
         }
 
         #output {
-            margin-top: 2rem;
+            margin: 2rem;
             padding: 1.5rem;
-            background-color: #f8f9fa;
+            background: var(--background-color);
             border-radius: 8px;
-            border-left: 4px solid var(--secondary-color);
-            font-family: monospace;
-            white-space: pre-wrap;
+            border-left: 4px solid var(--success-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            min-height: 120px;
+            color: var(--text-color);
         }
 
         .footer {
-            background: var(--primary-color);
-            color: white;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            padding: 1.5rem;
             text-align: center;
-            padding: 1.5rem 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            backdrop-filter: blur(5px);
-            background-color: rgba(44, 62, 80, 0.95);
         }
 
         @media (max-width: 768px) {
-            .container {
-                margin: 0 1rem 100px;
-                padding: 1.5rem;
+            .header {
+                padding: 3rem 1rem 2rem;
             }
 
             h1 {
                 font-size: 2rem;
+                padding: 0 1rem;
             }
 
-            button {
-                padding: 0.75rem;
+            .container {
+                margin: 1rem;
+            }
+
+            form {
+                padding: 1.5rem;
             }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        #output {
-            animation: fadeIn 0.3s ease-out;
+        /* وضع الظلام التلقائي */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #1e40af;
+                --secondary-color: #2563eb;
+                --accent-color: #3b82f6;
+                --background-color: #1e293b;
+                --text-color: #f8fafc;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <img src="Picsart_25-03-02_20-11-43-256.jpg" alt="Logo" class="logo">
-        <h1>Open Create - Container Storage</h1>
+        <h1>Open Create - تخزين الحاويات</h1>
     </div>
     <div class="container">
-        <h2>Retrieve Data from Containers</h2>
+        <h2>استرجاع البيانات من الحاويات</h2>
         <form id="retrieveForm">
             <div class="form-group">
-                <label for="retrieveContainerName">Container Name:</label>
+                <label for="retrieveContainerName">اسم الحاوية:</label>
                 <input type="text" id="retrieveContainerName" name="retrieveContainerName" required>
             </div>
             <div class="form-group">
-                <label for="retrieveKey">Key:</label>
+                <label for="retrieveKey">المفتاح:</label>
                 <input type="text" id="retrieveKey" name="retrieveKey" required>
             </div>
-            <button type="submit">Retrieve Data</button>
+            <button type="submit">استرجاع البيانات</button>
         </form>
         <div id="output"></div>
     </div>
     <div class="footer">
         <p>© 2025 Open Create</p>
     </div>
-    <script src="container.js"></script>
     <script>
+        // دالة للتحقق من تفضيلات المستخدم لوضع الظلام
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
         document.getElementById('retrieveForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const containerName = document.getElementById('retrieveContainerName').value;
             const key = document.getElementById('retrieveKey').value;
 
-            const userStorage = new UserStorage();
-            const retrievedData = userStorage.retrieveData(containerName, key);
-            document.getElementById('output').innerText = retrievedData ? JSON.stringify(retrievedData) : 'No data found';
+            // محاكاة استرجاع البيانات
+            const mockData = {
+                container: containerName,
+                key: key,
+                value: "بيانات تجريبية"
+            };
+
+            document.getElementById('output').innerText = JSON.stringify(mockData, null, 2);
         });
     </script>
 </body>
