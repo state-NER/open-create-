@@ -1,54 +1,83 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Create - Container Storage</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .header {
-            background-color: #007acc;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2, h3 {
-            color: #333;
-        }
-        p {
-            line-height: 1.6;
-        }
-        ul {
-            list-style: inside square;
-        }
-        a {
-            color: #007acc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .footer {
-            background-color: #007acc;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        /* Base Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header, footer {
+    background-color: #007acc;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #007acc;
+}
+
+ul {
+    list-style: inside square;
+}
+
+button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #005f99;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
         }
     </style>
 </head>
@@ -57,45 +86,15 @@
         <h1>Open Create - Container Storage</h1>
     </div>
     <div class="container">
-        <h2>حول خطافات الويب في GitHub</h2>
-
-        <h3>استخدامات خطافات الويب</h3>
-        <ul>
-            <li>تشغيل خطوط أنابيب التكامل المستمر (CI) عند دفع الكود.</li>
-            <li>إرسال إشعارات إلى منصات التعاون مثل Discord أو Slack عند مراجعة طلب سحب.</li>
-            <li>تحديث متعقب المشكلات الخارجي مثل Jira.</li>
-            <li>النشر على خادم الإنتاج.</li>
-            <li>تسجيل الأحداث لأغراض التدقيق.</li>
-        </ul>
-
-        <h3>كيفية عمل خطافات الويب</h3>
-        <p>
-            عند إنشاء خطاف ويب، يمكنك تحديد عنوان URL والاشتراك في الأحداث التي تحدث على GitHub. عند حدوث حدث، سيرسل GitHub طلب HTTP يحتوي على بيانات حول الحدث إلى عنوان URL المحدد. يمكن للخادم الخاص بك اتخاذ إجراء عند استلام الطلب.
-        </p>
-
-        <h3>مقارنة بين خطافات الويب وواجهة برمجة التطبيقات REST</h3>
-        <ul>
-            <li>تتطلب خطافات الويب جهدًا وموارد أقل من استطلاع واجهة برمجة التطبيقات.</li>
-            <li>تتوسع خطافات الويب بشكل أفضل من استدعاءات واجهة برمجة التطبيقات.</li>
-            <li>تسمح خطافات الويب بالتحديثات في الوقت الفعلي تقريبًا.</li>
-        </ul>
-
-        <h3>قراءة إضافية</h3>
-        <ul>
-            <li><a href="https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads">أنواع خطافات الويب</a></li>
-            <li><a href="https://docs.github.com/en/developers/webhooks-and-events/webhooks/best-practices-for-using-webhooks">أفضل الممارسات لاستخدام خطافات الويب</a></li>
-            <li><a href="https://support.github.com/contact">المساعدة والدعم</a></li>
-        </ul>
-
-        <h2>استرداد البيانات من الحاويات</h2>
+        <h2>Retrieve Data from Containers</h2>
         <form id="retrieveForm">
-            <label for="retrieveContainerName">اسم الحاوية:</label>
+            <label for="retrieveContainerName">Container Name:</label>
             <input type="text" id="retrieveContainerName" name="retrieveContainerName" required><br><br>
             
-            <label for="retrieveKey">المفتاح:</label>
+            <label for="retrieveKey">Key:</label>
             <input type="text" id="retrieveKey" name="retrieveKey" required><br><br>
             
-            <button type="submit">استرداد البيانات</button>
+            <button type="submit">Retrieve Data</button>
         </form>
         <div id="output"></div>
     </div>
@@ -115,4 +114,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
