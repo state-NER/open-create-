@@ -1,4 +1,4 @@
-# ![Container Storage Logo](https://example.com/container-storage-logo.png) Container Storage
+# ![Container Storage Logo](logo.png) Container Storage
 
 [![CNCF Status](https://img.shields.io/badge/cncf%20status-incubating-blue.svg)](https://www.cncf.io/projects)
 [![Build Status](https://github.com/state-NER/open-create-/actions/workflows/ci.yml/badge.svg)](https://github.com/state-NER/open-create-/actions/workflows/ci.yml)
