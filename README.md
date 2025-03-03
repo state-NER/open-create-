@@ -1,7 +1,7 @@
 # ![Container Storage Logo](logo.png) Container Storage
 
 [![CNCF Status](https://img.shields.io/badge/cncf%20status-incubating-blue.svg)](https://www.cncf.io/projects)
-[![Build Status](https://github.com/state-NER/open-create-/actions/workflows/ci.yml/badge.svg)](https://github.com/state-NER/open-create-/actions/workflows/ci.yml)
+
 [![LICENSE](https://img.shields.io/github/license/state-NER/open-create-.svg)](https://github.com/state-NER/open-create-/blob/master/LICENSE)
 [![Language](https://img.shields.io/badge/Language-JavaScript%20%2F%20Python%20%2F%20HTML-blue.svg)](https://github.com/state-NER/open-create-)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/6232/badge)](https://www.bestpractices.dev/projects/6232)
