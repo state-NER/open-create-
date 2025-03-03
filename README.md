@@ -1,8 +1,8 @@
+ # ![Container Storage Logo](logo.png) Open Create - Container Storage
 
-
-# ![Open Create Logo](logo.png) Open Create - Container Storage
-
- 
+[![Container Storage v0.0.1-beta](https://img.shields.io/badge/Container_Storage-v0.0.1--beta-blue.svg)](https://github.com/state-NER/open-create-/releases)
+[![Open Container Package](https://img.shields.io/badge/Open_Container-Package-green.svg)](https://www.npmjs.com/package/container-storage)
+![Container Storage Logo](https://img.shields.io/badge/Container_Storage-Logo-orange.svg)
 
 ## Overview
 Open Create - Container Storage is an advanced, professional storage system designed to manage large volumes of data efficiently and securely. It leverages the benefits of databases and cloud storage to deliver unparalleled performance, scalability, and flexibility.
@@ -86,7 +86,7 @@ console.log(userStorage.retrieveCreditCardData("user1"));  // Output: { data: { 
 ## HTML Integration
 To integrate with HTML, you can create a simple form to interact with the storage system.
 
-```html
+```html name=index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -295,10 +295,18 @@ mocha test_container_storage.js
 ## License
 This project is licensed under the MIT License.
 
-## Additional Resources
-- [Project Website](https://example.com)
+## Documentation
+Comprehensive documentation for the Open Create - Container Storage project can be found below:
+
 - [API Documentation](https://example.com/docs)
 - [Developer Guide](https://example.com/developer-guide)
+- [User Guide](https://example.com/user-guide)
+- [FAQ](https://example.com/faq)
+
+## Additional Resources
+- [Project Website](https://example.com)
+- [Community Forum](https://example.com/community-forum)
+- [Support](https://example.com/support)
 
 ## Media
 ### Teaser Video
@@ -306,6 +314,3 @@ This project is licensed under the MIT License.
 
 ### Storage Sound
 [Listen to the storage sound](https://example.com/storage-sound)
-```
-
-This updated version is more advanced, professional, and aligns with the themes of Container Storage and Open Create.
