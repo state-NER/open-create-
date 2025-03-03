@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Create - Container Storage Guide</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #3498DB;
+            --accent-color: #2980B9;
+            --background-color: #F8F9FA;
+            --text-color: #2C3E50;
+            --success-color: #27AE60;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-2px);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            backdrop-filter: blur(5px);
+            background-color: rgba(44, 62, 80, 0.95);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0 1rem 100px;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Open Create - Container Storage Guide</h1>
+    </div>
+    <div class="container">
+        <h2>Introduction</h2>
+        <p>Open Create - Container Storage is an advanced system designed to manage large volumes of data efficiently and securely. This guide will help you understand how to create and manage container storage using the Open Create library.</p>
+
+        <h2>Installation</h2>
+        <p>To install Open Create - Container Storage, use the following command:</p>
+        <pre><code>npm install container-storage</code></pre>
+
+        <h2>Creating a Container</h2>
+        <p>To create a container, you need to initialize the <code>ContainerStorage</code> class and use the <code>createContainer</code> method. Here is an example:</p>
+        <pre><code>const { ContainerStorage } = require('container-storage');
+
+const storage = new ContainerStorage();
+storage.createContainer("images");</code></pre>
+
+        <h2>Storing Data</h2>
+        <p>To store data in a container, use the <code>storeData</code> method. Here is an example:</p>
+        <pre><code>storage.storeData("images", "image1", "data_of_image1");</code></pre>
+
+        <h2>Retrieving Data</h2>
+        <p>To retrieve data from a container, use the <code>retrieveData</code> method. Here is an example:</p>
+        <pre><code>console.log(storage.retrieveData("images", "image1"));  // Output: { data: 'data_of_image1', timestamp: '2025-03-02T19:56:37.000Z' }</code></pre>
+
+        <h2>Deleting a Container</h2>
+        <p>To delete a container, use the <code>deleteContainer</code> method. Here is an example:</p>
+        <pre><code>storage.deleteContainer("images");</code></pre>
+
+        <h2>Listing All Containers</h2>
+        <p>To list all containers, use the <code>listContainers</code> method. Here is an example:</p>
+        <pre><code>console.log(storage.listContainers());  // Output: ['images']</code></pre>
+
+        <h2>Listing Keys in a Container</h2>
+        <p>To list all keys in a container, use the <code>listContainerKeys</code> method. Here is an example:</p>
+        <pre><code>console.log(storage.listContainerKeys("images"));  // Output: ['image1']</code></pre>
+
+        <h2>Checking Container Existence</h2>
+        <p>To check if a container exists, use the <code>containerExists</code> method. Here is an example:</p>
+        <pre><code>console.log(storage.containerExists("images"));  // Output: true</code></pre>
+
+        <h2>Checking Key Existence in a Container</h2>
+        <p>To check if a key exists in a container, use the <code>keyExists</code> method. Here is an example:</p>
+        <pre><code>console.log(storage.keyExists("images", "image1"));  // Output: true</code></pre>
+
+        <h2>Contributing</h2>
+        <p>We welcome contributions from the community to make Open Create - Container Storage even better. If you would like to contribute, please follow these steps:</p>
+        <ol>
+            <li>Fork the repository on GitHub.</li>
+            <li>Create a new branch for your feature or bug fix.</li>
+            <li>Make your changes and commit them with a clear and descriptive message.</li>
+            <li>Push your changes to your forked repository.</li>
+            <li>Open a pull request to the main repository.</li>
+        </ol>
+        <p>For more details, please refer to our <a href="https://example.com/contributing">contributing guide</a>.</p>
+    </div>
+    <div class="footer">
+        <p>© 2025 Open Create</p>
+    </div>
+</body>
+</html>
