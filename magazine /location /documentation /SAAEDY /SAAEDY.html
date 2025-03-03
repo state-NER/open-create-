@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAAEDY - إنشاء المجلات</title>
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      direction: rtl;
+    }
+
+    .container {
+      background: #161b22;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 800px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #58a6ff;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #8b949e;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #c9d1d9;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #c9d1d9;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #58a6ff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #2ea043;
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #output {
+      margin-top: 2rem;
+      animation: slideUp 0.5s ease-in-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #output h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #output p {
+      font-size: 1rem;
+      color: #8b949e;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #output a {
+      display: block;
+      background: #238636;
+      color: #fff;
+      text-align: center;
+      padding: 0.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #output a:hover {
+      background: #2ea043;
+      transform: translateY(-2px);
+    }
+
+    #preview {
+      background: #0d1117;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      margin-top: 1.5rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #preview h4 {
+      font-size: 1.2rem;
+      color: #58a6ff;
+      margin-bottom: 0.5rem;
+    }
+
+    #preview pre {
+      background: #161b22;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #c9d1d9;
+      overflow-x: auto;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .loader svg {
+      width: 100px;
+      height: 100px;
+      animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loader circle {
+      fill: none;
+      stroke: #58a6ff;
+      stroke-width: 8;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 0;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+
+    @keyframes dash {
+      0% { stroke-dashoffset: 300; }
+      50% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -300; }
+    }
+
+    .error {
+      color: #f85149;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    #magazineHub {
+      margin-top: 2rem;
+    }
+
+    .magazine-item {
+      background: #0d1117;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      margin-bottom: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .magazine-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .magazine-item h3 {
+      font-size: 1.2rem;
+      color: #58a6ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .magazine-item p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .magazine-item button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .magazine-item button:hover {
+      background: #2ea043;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      input, textarea, select {
+        padding: 0.6rem;
+      }
+
+      button {
+        padding: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SAAEDY - إنشاء المجلات</h1>
+    <p>أنشئ مجلتك بترخيص احترافي وملف توثيق.</p>
+
+    <!-- قسم تسجيل الدخول وإنشاء حساب -->
+    <div id="authSection">
+      <form id="loginForm">
+        <h2>تسجيل الدخول</h2>
+        <label for="loginEmail">البريد الإلكتروني:</label>
+        <input type="email" id="loginEmail" name="loginEmail" required>
+
+        <label for="loginPassword">كلمة المرور:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+
+        <button type="submit">تسجيل الدخول</button>
+        <p>ليس لديك حساب؟ <a href="#" id="showRegisterForm">إنشاء حساب</a></p>
+      </form>
+
+      <form id="registerForm" class="hidden">
+        <h2>إنشاء حساب</h2>
+        <label for="registerName">الاسم:</label>
+        <input type="text" id="registerName" name="registerName" required>
+
+        <label for="registerEmail">البريد الإلكتروني:</label>
+        <input type="email" id="registerEmail" name="registerEmail" required>
+
+        <label for="registerPassword">كلمة المرور:</label>
+        <input type="password" id="registerPassword" name="registerPassword" required>
+
+        <button type="submit">إنشاء حساب</button>
+        <p>لديك حساب بالفعل؟ <a href="#" id="showLoginForm">تسجيل الدخول</a></p>
+      </form>
+    </div>
+
+    <!-- قسم إنشاء المجلة -->
+    <div id="magazineSection" class="hidden">
+      <form id="magazineForm">
+        <label for="title">عنوان المجلة:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="author">المؤلف:</label>
+        <input type="text" id="author" name="author" required>
+
+        <label for="description">الوصف:</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+
+        <label for="installation">خطوات التثبيت:</label>
+        <textarea id="installation" name="installation" rows="5" required></textarea>
+
+        <label for="usage">الاستخدام:</label>
+        <textarea id="usage" name="usage" rows="5" required></textarea>
+
+        <label for="contributing">المساهمة:</label>
+        <textarea id="contributing" name="contributing" rows="5" required></textarea>
+
+        <label for="license">نوع الترخيص:</label>
+        <select id="license" name="license">
+          <option value="MIT">رخصة MIT</option>
+          <option value="GPL">رخصة GNU العامة</option>
+          <option value="Apache">رخصة Apache</option>
+          <option value="Magazine 1.0">رخصة Magazine 1.0</option>
+        </select>
+
+        <button type="submit">إنشاء المجلة</button>
+      </form>
+
+      <div id="loader" class="hidden">
+        <div class="loader">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <div id="output" class="hidden">
+        <h2>تم إنشاء ملفات المجلة</h2>
+        <p>قم بتنزيل الملفات التالية:</p>
+        <a id="downloadMagazine" href="#">تنزيل magazine.md</a>
+        <a id="downloadLicense" href="#">تنزيل LICENSE</a>
+        <a id="downloadContributing" href="#">تنزيل CONTRIBUTING.md</a>
+
+        <h3>معاينة الملفات:</h3>
+        <div id="preview"></div>
+      </div>
+
+      <div id="error" class="error hidden"></div>
+    </div>
+
+    <!-- قسم مجمع المجلات -->
+    <div id="magazineHub" class="hidden">
+      <h2>مجمع المجلات</h2>
+      <div id="magazineList"></div>
+    </div>
+
+    <!-- قسم إنشاء حزمة ونشر المجلة -->
+    <div id="packageSection" class="hidden">
+      <h2>إنشاء حزمة ونشر المجلة</h2>
+      <form id="packageForm">
+        <label for="magazineSelect">اختر المجلة:</label>
+        <select id="magazineSelect" name="magazineSelect" required>
+          <option value="">-- اختر مجلة --</option>
+        </select>
+
+        <label for="packageName">اسم الحزمة:</label>
+        <input type="text" id="packageName" name="packageName" required>
+
+        <label for="packageFiles">قائمة الملفات:</label>
+        <div id="packageFiles">
+          <div class="file-item">
+            <input type="checkbox" id="file1" name="file1" value="magazine.md" checked disabled>
+            <label for="file1">magazine.md</label>
+          </div>
+          <div class="file-item">
+            <input type="checkbox" id="file2" name="file2" value="LICENSE">
+            <label for="file2">LICENSE</label>
+          </div>
+          <div class="file-item">
+            <input type="checkbox" id="file3" name="file3" value="CONTRIBUTING.md">
+            <label for="file3">CONTRIBUTING.md</label>
+          </div>
+        </div>
+
+        <button type="submit">إنشاء الحزمة</button>
+      </form>
+
+      <div id="packageOutput" class="hidden">
+        <h3>تم إنشاء الحزمة بنجاح!</h3>
+        <p>قم بتنزيل الحزمة:</p>
+        <a id="downloadPackage" href="#">تنزيل الحزمة</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authSection = document.getElementById('authSection');
+      const magazineSection = document.getElementById('magazineSection');
+      const magazineHub = document.getElementById('magazineHub');
+      const packageSection = document.getElementById('packageSection');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const showRegisterForm = document.getElementById('showRegisterForm');
+      const showLoginForm = document.getElementById('showLoginForm');
+      const magazineForm = document.getElementById('magazineForm');
+      const packageForm = document.getElementById('packageForm');
+      const output = document.getElementById('output');
+      const packageOutput = document.getElementById('packageOutput');
+      const loader = document.getElementById('loader');
+      const error = document.getElementById('error');
+      const preview = document.getElementById('preview');
+      const downloadMagazine = document.getElementById('downloadMagazine');
+      const downloadLicense = document.getElementById('downloadLicense');
+      const downloadContributing = document.getElementById('downloadContributing');
+      const downloadPackage = document.getElementById('downloadPackage');
+      const magazineList = document.getElementById('magazineList');
+      const magazineSelect = document.getElementById('magazineSelect');
+
+      let currentUser = null;
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      let magazines = JSON.parse(localStorage.getItem('magazines')) || [];
+
+      // عرض نموذج التسجيل
+      showRegisterForm.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+      });
+
+      // عرض نموذج تسجيل الدخول
+      showLoginForm.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+      });
+
+      // تسجيل الدخول
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          currentUser = user;
+          authSection.classList.add('hidden');
+          magazineSection.classList.remove('hidden');
+          magazineHub.classList.remove('hidden');
+          packageSection.classList.remove('hidden');
+          loadMagazines();
+          loadMagazineSelect();
+        } else {
+          showError('البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+        }
+      });
+
+      // إنشاء حساب
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value.trim();
+
+        if (users.some(u => u.email === email)) {
+          showError('البريد الإلكتروني مستخدم بالفعل.');
+          return;
+        }
+
+        const newUser = { id: Date.now(), name, email, password };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+
+        currentUser = newUser;
+        authSection.classList.add('hidden');
+        magazineSection.classList.remove('hidden');
+        magazineHub.classList.remove('hidden');
+        packageSection.classList.remove('hidden');
+        loadMagazines();
+        loadMagazineSelect();
+      });
+
+      // إنشاء مجلة
+      magazineForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // إظهار المحمل وإخفاء الأخطاء
+        loader.classList.remove('hidden');
+        error.classList.add('hidden');
+
+        // الحصول على بيانات النموذج
+        const title = document.getElementById('title').value.trim();
+        const author = document.getElementById('author').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const installation = document.getElementById('installation').value.trim();
+        const usage = document.getElementById('usage').value.trim();
+        const contributing = document.getElementById('contributing').value.trim();
+        const license = document.getElementById('license').value;
+
+        // التحقق من صحة البيانات
+        if (!title || !author || !description || !installation || !usage || !contributing) {
+          showError('يرجى ملء جميع الحقول المطلوبة.');
+          loader.classList.add('hidden');
+          return;
+        }
+
+        // إنشاء محتوى ملف magazine.md
+        const magazineContent = `# ${title}
+
+**المؤلف:** ${author}
+
+**الوصف:** ${description}
+
+## جدول المحتويات
+1. [التثبيت](#التثبيت)
+2. [الاستخدام](#الاستخدام)
+3. [المساهمة](#المساهمة)
+4. [الترخيص](#الترخيص)
+
+## التثبيت
+${installation}
+
+## الاستخدام
+${usage}
+
+## المساهمة
+${contributing}
+
+## التراخيص
+هذا المشروع مرخص تحت [رخصة ${license}](LICENSE).
+
+### دروع المجلة
+![اسم المجلة](https://img.shields.io/badge/اسم_المجلة-${encodeURIComponent(title)}-blue)
+![الإصدار](https://img.shields.io/badge/الإصدار-1.0.0-green)
+![الترخيص](https://img.shields.io/badge/الترخيص-${encodeURIComponent(license)}-orange)
+![تم الإنشاء بواسطة](https://img.shields.io/badge/تم_الإنشاء_بواسطة-SAAEDY-brightgreen)
+
+### وصف الترخيص
+${getLicenseDescription(license)}
+`;
+
+        // إنشاء محتوى ملف License.ma بناءً على الترخيص المحدد
+        let licenseContent = '';
+        switch (license) {
+          case 'MIT':
+            licenseContent = `رخصة MIT\n\nحقوق النشر (c) ${new Date().getFullYear()} ${author}\n\nيُسمح بالاستخدام...`;
+            break;
+          case 'GPL':
+            licenseContent = `رخصة GNU العامة\nالإصدار 3، 29 يونيو 2007\n\nحقوق النشر (C) ${new Date().getFullYear()} ${author}\n\nهذا البرنامج مجاني...`;
+            break;
+          case 'Apache':
+            licenseContent = `رخصة Apache\nالإصدار 2.0، يناير 2004\n\nحقوق النشر (c) ${new Date().getFullYear()} ${author}\n\nمرخص تحت رخصة Apache...`;
+            break;
+          case 'Magazine 1.0':
+            licenseContent = `رخصة Magazine 1.0\n\nحقوق النشر (c) ${new Date().getFullYear()} ${author}\n\nيُسمح بإنشاء مجلات باستخدام هذا الترخيص...`;
+            break;
+        }
+
+        // إنشاء محتوى ملف CONTRIBUTING.md
+        const contributingContent = `# كيفية المساهمة في المشروع\n\nنرحب بمساهماتك! يرجى اتباع الخطوات التالية:\n\n1. قم بعمل Fork للمشروع.\n2. أنشئ فرعًا جديدًا.\n3. قم بإجراء التغييرات.\n4. أرسل Pull Request.`;
+
+        // إنشاء روابط التنزيل
+        const magazineBlob = new Blob([magazineContent], { type: 'text/markdown' });
+        const licenseBlob = new Blob([licenseContent], { type: 'text/plain' });
+        const contributingBlob = new Blob([contributingContent], { type: 'text/markdown' });
+
+        const magazineUrl = URL.createObjectURL(magazineBlob);
+        const licenseUrl = URL.createObjectURL(licenseBlob);
+        const contributingUrl = URL.createObjectURL(contributingBlob);
+
+        downloadMagazine.href = magazineUrl;
+        downloadMagazine.download = 'magazine.md';
+
+        downloadLicense.href = licenseUrl;
+        downloadLicense.download = 'LICENSE';
+
+        downloadContributing.href = contributingUrl;
+        downloadContributing.download = 'CONTRIBUTING.md';
+
+        // عرض معاينة الملفات
+        preview.innerHTML = `
+          <h4>معاينة magazine.md:</h4>
+          <pre>${magazineContent}</pre>
+          <h4>معاينة LICENSE:</h4>
+          <pre>${licenseContent}</pre>
+          <h4>معاينة CONTRIBUTING.md:</h4>
+          <pre>${contributingContent}</pre>
+        `;
+
+        // حفظ المجلة
+        const newMagazine = {
+          id: Date.now(),
+          title,
+          author,
+          description,
+          installation,
+          usage,
+          contributing,
+          license,
+          userId: currentUser.id,
+        };
+        magazines.push(newMagazine);
+        localStorage.setItem('magazines', JSON.stringify(magazines));
+
+        // إخفاء المحمل وإظهار النتائج
+        loader.classList.add('hidden');
+        output.classList.remove('hidden');
+        loadMagazines();
+        loadMagazineSelect();
+      });
+
+      // تحميل المجلات
+      function loadMagazines() {
+        magazineList.innerHTML = '';
+        const userMagazines = magazines.filter(m => m.userId === currentUser.id);
+
+        if (userMagazines.length === 0) {
+          magazineList.innerHTML = '<p>لا توجد مجلات متاحة.</p>';
+          return;
+        }
+
+        userMagazines.forEach(magazine => {
+          const magazineItem = document.createElement('div');
+          magazineItem.classList.add('magazine-item');
+          magazineItem.innerHTML = `
+            <h3>${magazine.title}</h3>
+            <p>${magazine.description}</p>
+            <button onclick="linkMagazine(${magazine.id})">ربط بمجلة أخرى</button>
+          `;
+          magazineList.appendChild(magazineItem);
+        });
+      }
+
+      // تحميل قائمة المجلات في القائمة المنسدلة
+      function loadMagazineSelect() {
+        magazineSelect.innerHTML = '<option value="">-- اختر مجلة --</option>';
+        const userMagazines = magazines.filter(m => m.userId === currentUser.id);
+
+        userMagazines.forEach(magazine => {
+          const option = document.createElement('option');
+          option.value = magazine.id;
+          option.textContent = magazine.title;
+          magazineSelect.appendChild(option);
+        });
+      }
+
+      // إنشاء حزمة
+      packageForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const magazineId = magazineSelect.value;
+        const packageName = document.getElementById('packageName').value.trim();
+        const selectedFiles = Array.from(document.querySelectorAll('#packageFiles input[type="checkbox"]:checked'))
+          .map(input => input.value);
+
+        if (!magazineId || !packageName || selectedFiles.length === 0) {
+          showError('يرجى ملء جميع الحقول المطلوبة.');
+          return;
+        }
+
+        const magazine = magazines.find(m => m.id === parseInt(magazineId));
+        if (!magazine) {
+          showError('المجلة المحددة غير موجودة.');
+          return;
+        }
+
+        // إنشاء الحزمة
+        const packageFiles = selectedFiles.map(file => {
+          return {
+            name: file,
+            content: file === 'magazine.md' ? `# ${magazine.title}\n\n${magazine.description}` : '',
+          };
+        });
+
+        const packageBlob = new Blob([JSON.stringify(packageFiles)], { type: 'application/json' });
+        const packageUrl = URL.createObjectURL(packageBlob);
+
+        downloadPackage.href = packageUrl;
+        downloadPackage.download = `${packageName}.zip`;
+
+        packageOutput.classList.remove('hidden');
+      });
+
+      // عرض الأخطاء
+      function showError(message) {
+        error.textContent = message;
+        error.classList.remove('hidden');
+      }
+
+      // وصف الترخيص
+      function getLicenseDescription(license) {
+        switch (license) {
+          case 'MIT':
+            return `رخصة MIT هي رخصة برمجية حرة تسمح بإعادة استخدام الكود لأي غرض، بما في ذلك الأغراض التجارية، مع الحفاظ على حقوق النشر وإشعار الترخيص.`;
+          case 'GPL':
+            return `رخصة GNU العامة (GPL) هي رخصة برمجية حرة تضمن للمستخدمين الحرية في استخدام ودراسة وتعديل وتوزيع البرمجيات.`;
+          case 'Apache':
+            return `رخصة Apache هي رخصة برمجية حرة تسمح باستخدام الكود لأي غرض، مع الحفاظ على حقوق النشر وإشعار الترخيص.`;
+          case 'Magazine 1.0':
+            return `رخصة Magazine 1.0 هي رخصة مخصصة لإنشاء المجلات، تسمح بإعادة استخدام المحتوى لأي غرض مع الحفاظ على حقوق النشر.`;
+          default:
+            return '';
+        }
+      }
+    });
+  </script>
+</body>
+  </html>
