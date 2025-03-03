@@ -2,19 +2,7 @@
 
 # ![Open Create Logo](logo.png) Open Create - Container Storage
 
-[![CNCF Status](https://img.shields.io/badge/cncf%20status-incubating-blue.svg)](https://www.cncf.io/projects)
-[![Build Status](https://github.com/state-NER/open-create-/actions/workflows/ci.yml/badge.svg)](https://github.com/state-NER/open-create-/actions/workflows/ci.yml)
-[![LICENSE](https://img.shields.io/github/license/state-NER/open-create-.svg)](https://github.com/state-NER/open-create-/blob/main/LICENSE)
-[![Language](https://img.shields.io/badge/Language-JavaScript%20%2F%20Python%20%2F%20HTML-blue.svg)](https://github.com/state-NER/open-create-)
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/6232/badge)](https://www.bestpractices.dev/projects/6232)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/state-NER/open-create-/badge)](https://securityscorecards.dev/viewer/?uri=github.com/state-NER/open-create-)
-[![Codecov](https://img.shields.io/codecov/c/github/state-NER/open-create-?style=flat-square&logo=codecov)](https://codecov.io/gh/state-NER/open-create-)
-[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/open-create-)](https://artifacthub.io/packages/helm/open-create-/open-create-)
-[![CLOMonitor](https://img.shields.io/endpoint?url=https://clomonitor.io/api/projects/cncf/open-create-/badge)](https://clomonitor.io/projects/cncf/open-create-)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fstate-NER%2Fopen-create-.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fstate-NER%2Fopen-create-?ref=badge_shield)
-[![Release](https://img.shields.io/github/v/release/state-NER/open-create-.svg?color=161823&style=flat-square&logo=smartthings)](https://github.com/state-NER/open-create-/releases)
-[![Tag](https://img.shields.io/github/v/tag/state-NER/open-create-.svg?color=ee8936&logo=fitbit&style=flat-square)](https://github.com/state-NER/open-create-/tags)
-[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Open%20Create%20Guru-006BFF)](https://gurubase.io/g/open-create-)
+ 
 
 ## Overview
 Open Create - Container Storage is an advanced, professional storage system designed to manage large volumes of data efficiently and securely. It leverages the benefits of databases and cloud storage to deliver unparalleled performance, scalability, and flexibility.
