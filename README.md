@@ -1,8 +1,10 @@
-# ![Container Storage Logo](logo.png) Container Storage
+
+
+# ![Open Create Logo](logo.png) Open Create - Container Storage
 
 [![CNCF Status](https://img.shields.io/badge/cncf%20status-incubating-blue.svg)](https://www.cncf.io/projects)
-
-[![LICENSE](https://img.shields.io/github/license/state-NER/open-create-.svg)](https://github.com/state-NER/open-create-/blob/master/LICENSE)
+[![Build Status](https://github.com/state-NER/open-create-/actions/workflows/ci.yml/badge.svg)](https://github.com/state-NER/open-create-/actions/workflows/ci.yml)
+[![LICENSE](https://img.shields.io/github/license/state-NER/open-create-.svg)](https://github.com/state-NER/open-create-/blob/main/LICENSE)
 [![Language](https://img.shields.io/badge/Language-JavaScript%20%2F%20Python%20%2F%20HTML-blue.svg)](https://github.com/state-NER/open-create-)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/6232/badge)](https://www.bestpractices.dev/projects/6232)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/state-NER/open-create-/badge)](https://securityscorecards.dev/viewer/?uri=github.com/state-NER/open-create-)
@@ -15,22 +17,22 @@
 [![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Open%20Create%20Guru-006BFF)](https://gurubase.io/g/open-create-)
 
 ## Overview
-Container Storage is an advanced, professional storage system designed to hold large amounts of data in containers. It combines the benefits of databases and cloud storage to provide high performance, scalability, and flexibility.
+Open Create - Container Storage is an advanced, professional storage system designed to manage large volumes of data efficiently and securely. It leverages the benefits of databases and cloud storage to deliver unparalleled performance, scalability, and flexibility.
 
 ## Features
-- **High Performance**: Low latency and high throughput for data operations.
-- **Scalability**: Designed to handle large amounts of data efficiently.
-- **Flexibility**: Supports various types of data storage, including account creation, login information, and credit card details.
-- **User and Admin Versions**: Separate storage versions for users and administrators.
-- **Timestamped Data Entries**: Each data entry is timestamped for easy tracking.
-- **Container Management**: Create, delete, list containers, and manage container keys.
-- **HTML Integration**: Easy integration with HTML for data retrieval and interaction.
+- **High Performance**: Experience low latency and high throughput for data operations.
+- **Scalability**: Seamlessly handle large amounts of data with ease.
+- **Flexibility**: Supports various data types, including account creation, login information, and credit card details.
+- **User and Admin Versions**: Separate storage solutions for users and administrators.
+- **Timestamped Data Entries**: Each data entry is timestamped for accurate tracking.
+- **Container Management**: Create, delete, list containers, and manage container keys effortlessly.
+- **HTML Integration**: Simplified integration with HTML for seamless data retrieval and interaction.
 
 ## Site Description for Search Engines
-Container Storage is a cutting-edge system for managing large volumes of data within containers, offering unparalleled performance, scalability, and flexibility. Ideal for both user and admin storage needs, with timestamped entries and comprehensive container management.
+Open Create - Container Storage is a cutting-edge system for managing large volumes of data within containers, providing unmatched performance, scalability, and flexibility. Ideal for both user and admin storage needs, with comprehensive container management and timestamped entries.
 
 ## Installation
-To install Container Storage, use the following command:
+To install Open Create - Container Storage, use the following command:
 ```
 npm install container-storage
 ```
@@ -96,13 +98,13 @@ console.log(userStorage.retrieveCreditCardData("user1"));  // Output: { data: { 
 ## HTML Integration
 To integrate with HTML, you can create a simple form to interact with the storage system.
 
-```html name=index.html
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Container Storage</title>
+    <title>Open Create - Container Storage</title>
     <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
     <style>
         /* Base Styles */
@@ -316,3 +318,6 @@ This project is licensed under the MIT License.
 
 ### Storage Sound
 [Listen to the storage sound](https://example.com/storage-sound)
+```
+
+This updated version is more advanced, professional, and aligns with the themes of Container Storage and Open Create.
