@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore SAAEDY, a comprehensive platform for Magazine documentation and resources. Visit our GitHub Repository for code, updates, and contributions related to SAAEDY Magazine projects.">
+  <meta name="theme-color" content=" #0098FF" />
+  <link rel="icon" type="image/png" href="logoo.png">
+  <title>SAAEDY - إنشاء المجلات</title>
+  <style>
+    /* Reset CSS */
+    * { 
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      direction: rtl;
+    }
+
+    .container {
+      background: #161b22;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 800px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #58a6ff;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #8b949e;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #c9d1d9;
+    }
+
+    input, textarea, select, .file-input {
+      width: 100%;
+      padding: 0.8rem;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #c9d1d9;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus, .file-input:focus {
+      border-color: #58a6ff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #2ea043;
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #output {
+      margin-top: 2rem;
+      animation: slideUp 0.5s ease-in-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #output h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #output p {
+      font-size: 1rem;
+      color: #8b949e;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #output a {
+      display: block;
+      background: #238636;
+      color: #fff;
+      text-align: center;
+      padding: 0.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #output a:hover {
+      background: #2ea043;
+      transform: translateY(-2px);
+    }
+
+    #preview {
+      background: #0d1117;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      margin-top: 1.5rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #preview h4 {
+      font-size: 1.2rem;
+      color: #58a6ff;
+      margin-bottom: 0.5rem;
+    }
+
+    #preview pre {
+      background: #161b22;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #c9d1d9;
+      overflow-x: auto;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .loader svg {
+      width: 100px;
+      height: 100px;
+      animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loader circle {
+      fill: none;
+      stroke: #58a6ff;
+      stroke-width: 8;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 0;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+
+    @keyframes dash {
+      0% { stroke-dashoffset: 300; }
+      50% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -300; }
+    }
+
+    .error {
+      color: #f85149;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    #magazineHub {
+      margin-top: 2rem;
+    }
+
+    .magazine-item {
+      background: #0d1117;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      margin-bottom: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .magazine-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .magazine-item h3 {
+      font-size: 1.2rem;
+      color: #58a6ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .magazine-item p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .magazine-item button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .magazine-item button:hover {
+      background: #2ea043;
+    }
+
+    .skeleton {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .skeleton-item {
+      background: #161b22;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .language-switcher {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .language-switcher:hover {
+      background: #2ea043;
+    }
+
+    .file-input {
+      cursor: pointer;
+    }
+
+    .file-input::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    .file-input::before {
+      content: 'اختر ملف';
+      display: inline-block;
+      background: #238636;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .file-input:hover::before {
+      background: #2ea043;
+    }
+
+    .account-section {
+      margin-top: 2rem;
+    }
+
+    .account-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .account-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .account-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .account-section button:hover {
+      background: #2ea043;
+    }
+
+    .verification-section {
+      margin-top: 2rem;
+    }
+
+    .verification-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .verification-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .verification-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .verification-section button:hover {
+      background: #2ea043;
+    }
+
+    .analytics-section {
+      margin-top: 2rem;
+    }
+
+    .analytics-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .analytics-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .analytics-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .analytics-section button:hover {
+      background: #2ea043;
+    }
+
+    .collaboration-section {
+      margin-top: 2rem;
+    }
+
+    .collaboration-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .collaboration-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .collaboration-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .collaboration-section button:hover {
+      background: #2ea043;
+    }
+
+    .monetization-section {
+      margin-top: 2rem;
+    }
+
+    .monetization-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .monetization-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .monetization-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .monetization-section button:hover {
+      background: #2ea043;
+    }
+
+    .search-section {
+      margin-top: 2rem;
+    }
+
+    .search-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .search-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .search-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-section button:hover {
+      background: #2ea043;
+    }
+
+    .notifications-section {
+      margin-top: 2rem;
+    }
+
+    .notifications-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .notifications-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .notifications-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .notifications-section button:hover {
+      background: #2ea043;
+    }
+
+    .comments-section {
+      margin-top: 2rem;
+    }
+
+    .comments-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .comments-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .comments-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .comments-section button:hover {
+      background: #2ea043;
+    }
+
+    .themes-section {
+      margin-top: 2rem;
+    }
+
+    .themes-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .themes-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .themes-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .themes-section button:hover {
+      background: #2ea043;
+    }
+
+    .export-section {
+      margin-top: 2rem;
+    }
+
+    .export-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .export-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .export-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .export-section button:hover {
+      background: #2ea043;
+    }
+
+    .admin-section {
+      margin-top: 2rem;
+    }
+
+    .admin-section h2 {
+      font-size: 1.8rem;
+      color: #58a6ff;
+      margin-bottom: 1rem;
+    }
+
+    .admin-section p {
+      font-size: 1rem;
+      color: #8b949e;
+      margin-bottom: 1rem;
+    }
+
+    .admin-section button {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .admin-section button:hover {
+      background: #2ea043;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      input, textarea, select {
+        padding: 0.6rem;
+      }
+
+      button {
+        padding: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="language-switcher" id="languageSwitcher">English</button>
+    <h1 id="appTitle">SAAEDY - إنشاء المجلات</h1>
+    <p id="appDescription">أنشئ مجلتك بترخيص احترافي وملف توثيق.</p>
+
+    <!-- قسم تسجيل الدخول وإنشاء حساب -->
+    <div id="authSection">
+      <form id="loginForm">
+        <h2 id="loginTitle">تسجيل الدخول</h2>
+        <label for="loginEmail" id="loginEmailLabel">البريد الإلكتروني:</label>
+        <input type="email" id="loginEmail" name="loginEmail" required>
+
+        <label for="loginPassword" id="loginPasswordLabel">كلمة المرور:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+
+        <button type="submit" id="loginButton">تسجيل الدخول</button>
+        <p id="loginPrompt">ليس لديك حساب؟ <a href="#" id="showRegisterForm">إنشاء حساب</a></p>
+      </form>
+
+      <form id="registerForm" class="hidden">
+        <h2 id="registerTitle">إنشاء حساب</h2>
+        <label for="registerName" id="registerNameLabel">الاسم:</label>
+        <input type="text" id="registerName" name="registerName" required>
+
+        <label for="registerEmail" id="registerEmailLabel">البريد الإلكتروني:</label>
+        <input type="email" id="registerEmail" name="registerEmail" required>
+
+        <label for="registerPassword" id="registerPasswordLabel">كلمة المرور:</label>
+        <input type="password" id="registerPassword" name="registerPassword" required>
+
+        <button type="submit" id="registerButton">إنشاء حساب</button>
+        <p id="registerPrompt">لديك حساب بالفعل؟ <a href="#" id="showLoginForm">تسجيل الدخول</a></p>
+      </form>
+    </div>
+
+    <!-- قسم إنشاء المجلة -->
+    <div id="magazineSection" class="hidden">
+      <form id="magazineForm">
+        <label for="title" id="magazineTitleLabel">عنوان المجلة:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="author" id="authorLabel">المؤلف:</label>
+        <input type="text" id="author" name="author" required>
+
+        <label for="description" id="descriptionLabel">الوصف:</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+
+        <label for="installation" id="installationLabel">خطوات التثبيت:</label>
+        <textarea id="installation" name="installation" rows="5" required></textarea>
+
+        <label for="usage" id="usageLabel">الاستخدام:</label>
+        <textarea id="usage" name="usage" rows="5" required></textarea>
+
+        <label for="contributing" id="contributingLabel">المساهمة:</label>
+        <textarea id="contributing" name="contributing" rows="5" required></textarea>
+
+        <label for="license" id="licenseLabel">نوع الترخيص:</label>
+        <select id="license" name="license">
+          <option value="MIT">رخصة MIT</option>
+          <option value="GPL">رخصة GNU العامة</option>
+          <option value="Apache">رخصة Apache</option>
+          <option value="Magazine 1.0">رخصة Magazine 1.0</option>
+        </select>
+
+        <label for="icon" id="iconLabel">أيقونة المجلة:</label>
+        <input type="file" id="icon" name="icon" class="file-input" accept="image/*">
+
+        <label for="banner" id="bannerLabel">بانر المجلة:</label>
+        <input type="file" id="banner" name="banner" class="file-input" accept="image/*">
+
+        <button type="submit" id="createMagazineButton">إنشاء المجلة</button>
+      </form>
+
+      <div id="loader" class="hidden">
+        <div class="loader">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <div id="output" class="hidden">
+        <h2 id="outputTitle">تم إنشاء ملفات المجلة</h2>
+        <p id="outputDescription">قم بتنزيل الملفات التالية:</p>
+        <a id="downloadMagazine" href="#">تنزيل magazine.md</a>
+        <a id="downloadLicense" href="#">تنزيل LICENSE</a>
+        <a id="downloadContributing" href="#">تنزيل CONTRIBUTING.md</a>
+        <a id="magazineLink" href="#" target="_blank">رابط المجلة</a>
+
+        <h3 id="previewTitle">معاينة الملفات:</h3>
+        <div id="preview"></div>
+      </div>
+
+      <div id="error" class="error hidden"></div>
+    </div>
+
+    <!-- قسم مجمع المجلات -->
+    <div id="magazineHub" class="hidden">
+      <h2 id="magazineHubTitle">مجمع المجلات</h2>
+      <div id="skeletonLoading" class="skeleton">
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+      </div>
+      <div id="magazineList"></div>
+    </div>
+
+    <!-- قسم الحساب -->
+    <div id="accountSection" class="account-section hidden">
+      <h2 id="accountTitle">حسابك</h2>
+      <p id="accountDescription">إدارة حسابك وإعدادات المجلة.</p>
+      <button id="viewStatsButton">عرض الإحصائيات</button>
+      <button id="requestWithdrawalButton">طلب سحب</button>
+      <button id="requestContributionButton">طلب مساهمة</button>
+    </div>
+
+    <!-- قسم التحقق -->
+    <div id="verificationSection" class="verification-section hidden">
+      <h2 id="verificationTitle">التحقق من الحساب</h2>
+      <p id="verificationDescription">تحقق من حسابك بعد الوصول إلى 5,000 متابع.</p>
+      <button id="applyVerificationButton">تقديم طلب التحقق</button>
+    </div>
+
+    <!-- قسم التحليلات -->
+    <div id="analyticsSection" class="analytics-section hidden">
+      <h2 id="analyticsTitle">تحليلات المجلة</h2>
+      <p id="analyticsDescription">عرض إحصائيات المشاهدات والإعجابات والمشاركات.</p>
+      <button id="viewAnalyticsButton">عرض التحليلات</button>
+    </div>
+
+    <!-- قسم المشاركة الاجتماعية -->
+    <div id="socialSection" class="social-section hidden">
+      <h2 id="socialTitle">المشاركة الاجتماعية</h2>
+      <p id="socialDescription">شارك مجلتك على منصات التواصل الاجتماعي.</p>
+      <button id="shareOnTwitter">شارك على تويتر</button>
+      <button id="shareOnFacebook">شارك على فيسبوك</button>
+      <button id="shareOnLinkedIn">شارك على لينكد إن</button>
+    </div>
+
+    <!-- قسم التعاون -->
+    <div id="collaborationSection" class="collaboration-section hidden">
+      <h2 id="collaborationTitle">التعاون</h2>
+      <p id="collaborationDescription">أضف محررين ومساهمين إلى مجلتك.</p>
+      <button id="addCollaborator">إضافة محرر</button>
+    </div>
+
+    <!-- قسم الربح -->
+    <div id="monetizationSection" class="monetization-section hidden">
+      <h2 id="monetizationTitle">الربح</h2>
+      <p id="monetizationDescription">قم بإعداد اشتراكات مدفوعة لمجلتك.</p>
+      <button id="setupSubscription">إعداد اشتراك مدفوع</button>
+    </div>
+
+    <!-- قسم البحث -->
+    <div id="searchSection" class="search-section hidden">
+      <h2 id="searchTitle">البحث</h2>
+      <p id="searchDescription">ابحث عن المجلات حسب العنوان أو المؤلف أو التصنيف.</p>
+      <input type="text" id="searchInput" placeholder="ابحث عن مجلة...">
+      <button id="searchButton">بحث</button>
+    </div>
+
+    <!-- قسم الإشعارات -->
+    <div id="notificationsSection" class="notifications-section hidden">
+      <h2 id="notificationsTitle">الإشعارات</h2>
+      <p id="notificationsDescription">عرض الإشعارات الجديدة.</p>
+      <button id="viewNotifications">عرض الإشعارات</button>
+    </div>
+
+    <!-- قسم التعليقات -->
+    <div id="commentsSection" class="comments-section hidden">
+      <h2 id="commentsTitle">التعليقات</h2>
+      <p id="commentsDescription">عرض التعليقات والتقييمات.</p>
+      <button id="viewComments">عرض التعليقات</button>
+    </div>
+
+    <!-- قسم السمات -->
+    <div id="themesSection" class="themes-section hidden">
+      <h2 id="themesTitle">السمات</h2>
+      <p id="themesDescription">قم بتخصيص مظهر مجلتك.</p>
+      <button id="customizeTheme">تخصيص السمة</button>
+    </div>
+
+    <!-- قسم التصدير -->
+    <div id="exportSection" class="export-section hidden">
+      <h2 id="exportTitle">التصدير</h2>
+      <p id="exportDescription">قم بتصدير مجلتك بتنسيقات مختلفة.</p>
+      <button id="exportAsPDF">تصدير كـ PDF</button>
+    </div>
+
+    <!-- قسم الإدارة -->
+    <div id="adminSection" class="admin-section hidden">
+      <h2 id="adminTitle">الإدارة</h2>
+      <p id="adminDescription">إدارة المستخدمين والمجلات.</p>
+      <button id="manageUsers">إدارة المستخدمين</button>
+      <button id="manageMagazines">إدارة المجلات</button>
+    </div>
+  </div> 
+  <link rel="icon" sizes="192x192" href="logoo.png">
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const authSection = document.getElementById('authSection');
+      const magazineSection = document.getElementById('magazineSection');
+      const magazineHub = document.getElementById('magazineHub');
+      const accountSection = document.getElementById('accountSection');
+      const verificationSection = document.getElementById('verificationSection');
+      const analyticsSection = document.getElementById('analyticsSection');
+      const socialSection = document.getElementById('socialSection');
+      const collaborationSection = document.getElementById('collaborationSection');
+      const monetizationSection = document.getElementById('monetizationSection');
+      const searchSection = document.getElementById('searchSection');
+      const notificationsSection = document.getElementById('notificationsSection');
+      const commentsSection = document.getElementById('commentsSection');
+      const themesSection = document.getElementById('themesSection');
+      const exportSection = document.getElementById('exportSection');
+      const adminSection = document.getElementById('adminSection');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const showRegisterForm = document.getElementById('showRegisterForm');
+      const showLoginForm = document.getElementById('showLoginForm');
+      const magazineForm = document.getElementById('magazineForm');
+      const output = document.getElementById('output');
+      const loader = document.getElementById('loader');
+      const error = document.getElementById('error');
+      const preview = document.getElementById('preview');
+      const downloadMagazine = document.getElementById('downloadMagazine');
+      const downloadLicense = document.getElementById('downloadLicense');
+      const downloadContributing = document.getElementById('downloadContributing');
+      const magazineList = document.getElementById('magazineList');
+      const skeletonLoading = document.getElementById('skeletonLoading');
+      const languageSwitcher = document.getElementById('languageSwitcher');
+      const magazineLink = document.getElementById('magazineLink');
+      const viewStatsButton = document.getElementById('viewStatsButton');
+      const requestWithdrawalButton = document.getElementById('requestWithdrawalButton');
+      const requestContributionButton = document.getElementById('requestContributionButton');
+      const applyVerificationButton = document.getElementById('applyVerificationButton');
+      const viewAnalyticsButton = document.getElementById('viewAnalyticsButton');
+      const shareOnTwitter = document.getElementById('shareOnTwitter');
+      const shareOnFacebook = document.getElementById('shareOnFacebook');
+      const shareOnLinkedIn = document.getElementById('shareOnLinkedIn');
+      const addCollaborator = document.getElementById('addCollaborator');
+      const setupSubscription = document.getElementById('setupSubscription');
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      const viewNotifications = document.getElementById('viewNotifications');
+      const viewComments = document.getElementById('viewComments');
+      const customizeTheme = document.getElementById('customizeTheme');
+      const exportAsPDF = document.getElementById('exportAsPDF');
+      const manageUsers = document.getElementById('manageUsers');
+      const manageMagazines = document.getElementById('manageMagazines');
+
+      let currentUser = null;
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      let magazines = JSON.parse(localStorage.getItem('magazines')) || [];
+      let currentLanguage = localStorage.getItem('language') || 'ar';
+
+      // تحميل اللغة المحددة
+      const translations = {
+        ar: {
+          appTitle: 'SAAEDY - إنشاء المجلات',
+          appDescription: 'أنشئ مجلتك بترخيص احترافي وملف توثيق.',
+          loginTitle: 'تسجيل الدخول',
+          loginEmailLabel: 'البريد الإلكتروني:',
+          loginPasswordLabel: 'كلمة المرور:',
+          loginButton: 'تسجيل الدخول',
+          loginPrompt: 'ليس لديك حساب؟',
+          registerTitle: 'إنشاء حساب',
+          registerNameLabel: 'الاسم:',
+          registerEmailLabel: 'البريد الإلكتروني:',
+          registerPasswordLabel: 'كلمة المرور:',
+          registerButton: 'إنشاء حساب',
+          registerPrompt: 'لديك حساب بالفعل؟',
+          magazineTitleLabel: 'عنوان المجلة:',
+          authorLabel: 'المؤلف:',
+          descriptionLabel: 'الوصف:',
+          installationLabel: 'خطوات التثبيت:',
+          usageLabel: 'الاستخدام:',
+          contributingLabel: 'المساهمة:',
+          licenseLabel: 'نوع الترخيص:',
+          createMagazineButton: 'إنشاء المجلة',
+          outputTitle: 'تم إنشاء ملفات المجلة',
+          outputDescription: 'قم بتنزيل الملفات التالية:',
+          previewTitle: 'معاينة الملفات:',
+          magazineHubTitle: 'مجمع المجلات',
+          accountTitle: 'حسابك',
+          accountDescription: 'إدارة حسابك وإعدادات المجلة.',
+          viewStatsButton: 'عرض الإحصائيات',
+          requestWithdrawalButton: 'طلب سحب',
+          requestContributionButton: 'طلب مساهمة',
+          verificationTitle: 'التحقق من الحساب',
+          verificationDescription: 'تحقق من حسابك بعد الوصول إلى 5,000 متابع.',
+          applyVerificationButton: 'تقديم طلب التحقق',
+          analyticsTitle: 'تحليلات المجلة',
+          analyticsDescription: 'عرض إحصائيات المشاهدات والإعجابات والمشاركات.',
+          viewAnalyticsButton: 'عرض التحليلات',
+          socialTitle: 'المشاركة الاجتماعية',
+          socialDescription: 'شارك مجلتك على منصات التواصل الاجتماعي.',
+          shareOnTwitter: 'شارك على تويتر',
+          shareOnFacebook: 'شارك على فيسبوك',
+          shareOnLinkedIn: 'شارك على لينكد إن',
+          collaborationTitle: 'التعاون',
+          collaborationDescription: 'أضف محررين ومساهمين إلى مجلتك.',
+          addCollaborator: 'إضافة محرر',
+          monetizationTitle: 'الربح',
+          monetizationDescription: 'قم بإعداد اشتراكات مدفوعة لمجلتك.',
+          setupSubscription: 'إعداد اشتراك مدفوع',
+          searchTitle: 'البحث',
+          searchDescription: 'ابحث عن المجلات حسب العنوان أو المؤلف أو التصنيف.',
+          searchInputPlaceholder: 'ابحث عن مجلة...',
+          searchButton: 'بحث',
+          notificationsTitle: 'الإشعارات',
+          notificationsDescription: 'عرض الإشعارات الجديدة.',
+          viewNotifications: 'عرض الإشعارات',
+          commentsTitle: 'التعليقات',
+          commentsDescription: 'عرض التعليقات والتقييمات.',
+          viewComments: 'عرض التعليقات',
+          themesTitle: 'السمات',
+          themesDescription: 'قم بتخصيص مظهر مجلتك.',
+          customizeTheme: 'تخصيص السمة',
+          exportTitle: 'التصدير',
+          exportDescription: 'قم بتصدير مجلتك بتنسيقات مختلفة.',
+          exportAsPDF: 'تصدير كـ PDF',
+          adminTitle: 'الإدارة',
+          adminDescription: 'إدارة المستخدمين والمجلات.',
+          manageUsers: 'إدارة المستخدمين',
+          manageMagazines: 'إدارة المجلات',
+        },
+        en: {
+          appTitle: 'SAAEDY - Create Magazines',
+          appDescription: 'Create your magazine with a professional license and documentation file.',
+          loginTitle: 'Login',
+          loginEmailLabel: 'Email:',
+          loginPasswordLabel: 'Password:',
+          loginButton: 'Login',
+          loginPrompt: 'Don\'t have an account?',
+          registerTitle: 'Register',
+          registerNameLabel: 'Name:',
+          registerEmailLabel: 'Email:',
+          registerPasswordLabel: 'Password:',
+          registerButton: 'Register',
+          registerPrompt: 'Already have an account?',
+          magazineTitleLabel: 'Magazine Title:',
+          authorLabel: 'Author:',
+          descriptionLabel: 'Description:',
+          installationLabel: 'Installation Steps:',
+          usageLabel: 'Usage:',
+          contributingLabel: 'Contributing:',
+          licenseLabel: 'License Type:',
+          createMagazineButton: 'Create Magazine',
+          outputTitle: 'Magazine Files Created',
+          outputDescription: 'Download the following files:',
+          previewTitle: 'File Preview:',
+          magazineHubTitle: 'Magazine Hub',
+          accountTitle: 'Your Account',
+          accountDescription: 'Manage your account and magazine settings.',
+          viewStatsButton: 'View Stats',
+          requestWithdrawalButton: 'Request Withdrawal',
+          requestContributionButton: 'Request Contribution',
+          verificationTitle: 'Account Verification',
+          verificationDescription: 'Verify your account after reaching 5,000 followers.',
+          applyVerificationButton: 'Apply for Verification',
+          analyticsTitle: 'Magazine Analytics',
+          analyticsDescription: 'View views, likes, and shares statistics.',
+          viewAnalyticsButton: 'View Analytics',
+          socialTitle: 'Social Sharing',
+          socialDescription: 'Share your magazine on social media platforms.',
+          shareOnTwitter: 'Share on Twitter',
+          shareOnFacebook: 'Share on Facebook',
+          shareOnLinkedIn: 'Share on LinkedIn',
+          collaborationTitle: 'Collaboration',
+          collaborationDescription: 'Add editors and contributors to your magazine.',
+          addCollaborator: 'Add Editor',
+          monetizationTitle: 'Monetization',
+          monetizationDescription: 'Set up paid subscriptions for your magazine.',
+          setupSubscription: 'Setup Paid Subscription',
+          searchTitle: 'Search',
+          searchDescription: 'Search for magazines by title, author, or category.',
+          searchInputPlaceholder: 'Search for a magazine...',
+          searchButton: 'Search',
+          notificationsTitle: 'Notifications',
+          notificationsDescription: 'View new notifications.',
+          viewNotifications: 'View Notifications',
+          commentsTitle: 'Comments',
+          commentsDescription: 'View comments and ratings.',
+          viewComments: 'View Comments',
+          themesTitle: 'Themes',
+          themesDescription: 'Customize the look of your magazine.',
+          customizeTheme: 'Customize Theme',
+          exportTitle: 'Export',
+          exportDescription: 'Export your magazine in different formats.',
+          exportAsPDF: 'Export as PDF',
+          adminTitle: 'Admin',
+          adminDescription: 'Manage users and magazines.',
+          manageUsers: 'Manage Users',
+          manageMagazines: 'Manage Magazines',
+        },
+      };
+
+      // تغيير اللغة
+      function changeLanguage(lang) {
+        currentLanguage = lang;
+        localStorage.setItem('language', lang);
+        updateUI();
+      }
+
+      // تحديث الواجهة بناءً على اللغة
+      function updateUI() {
+        const texts = translations[currentLanguage];
+        document.getElementById('appTitle').textContent = texts.appTitle;
+        document.getElementById('appDescription').textContent = texts.appDescription;
+        document.getElementById('loginTitle').textContent = texts.loginTitle;
+        document.getElementById('loginEmailLabel').textContent = texts.loginEmailLabel;
+        document.getElementById('loginPasswordLabel').textContent = texts.loginPasswordLabel;
+        document.getElementById('loginButton').textContent = texts.loginButton;
+        document.getElementById('loginPrompt').innerHTML = `${texts.loginPrompt} <a href="#" id="showRegisterForm">${currentLanguage === 'ar' ? 'إنشاء حساب' : 'Register'}</a>`;
+        document.getElementById('registerTitle').textContent = texts.registerTitle;
+        document.getElementById('registerNameLabel').textContent = texts.registerNameLabel;
+        document.getElementById('registerEmailLabel').textContent = texts.registerEmailLabel;
+        document.getElementById('registerPasswordLabel').textContent = texts.registerPasswordLabel;
+        document.getElementById('registerButton').textContent = texts.registerButton;
+        document.getElementById('registerPrompt').innerHTML = `${texts.registerPrompt} <a href="#" id="showLoginForm">${currentLanguage === 'ar' ? 'تسجيل الدخول' : 'Login'}</a>`;
+        document.getElementById('magazineTitleLabel').textContent = texts.magazineTitleLabel;
+        document.getElementById('authorLabel').textContent = texts.authorLabel;
+        document.getElementById('descriptionLabel').textContent = texts.descriptionLabel;
+        document.getElementById('installationLabel').textContent = texts.installationLabel;
+        document.getElementById('usageLabel').textContent = texts.usageLabel;
+        document.getElementById('contributingLabel').textContent = texts.contributingLabel;
+        document.getElementById('licenseLabel').textContent = texts.licenseLabel;
+        document.getElementById('createMagazineButton').textContent = texts.createMagazineButton;
+        document.getElementById('outputTitle').textContent = texts.outputTitle;
+        document.getElementById('outputDescription').textContent = texts.outputDescription;
+        document.getElementById('previewTitle').textContent = texts.previewTitle;
+        document.getElementById('magazineHubTitle').textContent = texts.magazineHubTitle;
+        document.getElementById('accountTitle').textContent = texts.accountTitle;
+        document.getElementById('accountDescription').textContent = texts.accountDescription;
+        document.getElementById('viewStatsButton').textContent = texts.viewStatsButton;
+        document.getElementById('requestWithdrawalButton').textContent = texts.requestWithdrawalButton;
+        document.getElementById('requestContributionButton').textContent = texts.requestContributionButton;
+        document.getElementById('verificationTitle').textContent = texts.verificationTitle;
+        document.getElementById('verificationDescription').textContent = texts.verificationDescription;
+        document.getElementById('applyVerificationButton').textContent = texts.applyVerificationButton;
+        document.getElementById('analyticsTitle').textContent = texts.analyticsTitle;
+        document.getElementById('analyticsDescription').textContent = texts.analyticsDescription;
+        document.getElementById('viewAnalyticsButton').textContent = texts.viewAnalyticsButton;
+        document.getElementById('socialTitle').textContent = texts.socialTitle;
+        document.getElementById('socialDescription').textContent = texts.socialDescription;
+        document.getElementById('shareOnTwitter').textContent = texts.shareOnTwitter;
+        document.getElementById('shareOnFacebook').textContent = texts.shareOnFacebook;
+        document.getElementById('shareOnLinkedIn').textContent = texts.shareOnLinkedIn;
+        document.getElementById('collaborationTitle').textContent = texts.collaborationTitle;
+        document.getElementById('collaborationDescription').textContent = texts.collaborationDescription;
+        document.getElementById('addCollaborator').textContent = texts.addCollaborator;
+        document.getElementById('monetizationTitle').textContent = texts.monetizationTitle;
+        document.getElementById('monetizationDescription').textContent = texts.monetizationDescription;
+        document.getElementById('setupSubscription').textContent = texts.setupSubscription;
+        document.getElementById('searchTitle').textContent = texts.searchTitle;
+        document.getElementById('searchDescription').textContent = texts.searchDescription;
+        document.getElementById('searchInput').placeholder = texts.searchInputPlaceholder;
+        document.getElementById('searchButton').textContent = texts.searchButton;
+        document.getElementById('notificationsTitle').textContent = texts.notificationsTitle;
+        document.getElementById('notificationsDescription').textContent = texts.notificationsDescription;
+        document.getElementById('viewNotifications').textContent = texts.viewNotifications;
+        document.getElementById('commentsTitle').textContent = texts.commentsTitle;
+        document.getElementById('commentsDescription').textContent = texts.commentsDescription;
+        document.getElementById('viewComments').textContent = texts.viewComments;
+        document.getElementById('themesTitle').textContent = texts.themesTitle;
+        document.getElementById('themesDescription').textContent = texts.themesDescription;
+        document.getElementById('customizeTheme').textContent = texts.customizeTheme;
+        document.getElementById('exportTitle').textContent = texts.exportTitle;
+        document.getElementById('exportDescription').textContent = texts.exportDescription;
+        document.getElementById('exportAsPDF').textContent = texts.exportAsPDF;
+        document.getElementById('adminTitle').textContent = texts.adminTitle;
+        document.getElementById('adminDescription').textContent = texts.adminDescription;
+        document.getElementById('manageUsers').textContent = texts.manageUsers;
+        document.getElementById('manageMagazines').textContent = texts.manageMagazines;
+        languageSwitcher.textContent = currentLanguage === 'ar' ? 'English' : 'العربية';
+      }
+
+      // تغيير اللغة عند النقر على الزر
+      languageSwitcher.addEventListener('click', () => {
+        changeLanguage(currentLanguage === 'ar' ? 'en' : 'ar');
+      });
+
+      // تحميل اللغة المفضلة عند التحميل
+      updateUI();
+
+      // عرض نموذج التسجيل
+      showRegisterForm.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+      });
+
+      // عرض نموذج تسجيل الدخول
+      showLoginForm.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+      });
+
+      // تسجيل الدخول
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          currentUser = user;
+          authSection.classList.add('hidden');
+          magazineSection.classList.remove('hidden');
+          magazineHub.classList.remove('hidden');
+          accountSection.classList.remove('hidden');
+          verificationSection.classList.remove('hidden');
+          analyticsSection.classList.remove('hidden');
+          socialSection.classList.remove('hidden');
+          collaborationSection.classList.remove('hidden');
+          monetizationSection.classList.remove('hidden');
+          searchSection.classList.remove('hidden');
+          notificationsSection.classList.remove('hidden');
+          commentsSection.classList.remove('hidden');
+          themesSection.classList.remove('hidden');
+          exportSection.classList.remove('hidden');
+          adminSection.classList.remove('hidden');
+          loadMagazines();
+        } else {
+          showError(currentLanguage === 'ar' ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة.' : 'Invalid email or password.');
+        }
+      });
+
+      // إنشاء حساب
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value.trim();
+
+        if (users.some(u => u.email === email)) {
+          showError(currentLanguage === 'ar' ? 'البريد الإلكتروني مستخدم بالفعل.' : 'Email already in use.');
+          return;
+        }
+
+        const newUser = { id: Date.now(), name, email, password, followers: 0, verified: false };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+
+        currentUser = newUser;
+        authSection.classList.add('hidden');
+        magazineSection.classList.remove('hidden');
+        magazineHub.classList.remove('hidden');
+        accountSection.classList.remove('hidden');
+        verificationSection.classList.remove('hidden');
+        analyticsSection.classList.remove('hidden');
+        socialSection.classList.remove('hidden');
+        collaborationSection.classList.remove('hidden');
+        monetizationSection.classList.remove('hidden');
+        searchSection.classList.remove('hidden');
+        notificationsSection.classList.remove('hidden');
+        commentsSection.classList.remove('hidden');
+        themesSection.classList.remove('hidden');
+        exportSection.classList.remove('hidden');
+        adminSection.classList.remove('hidden');
+        loadMagazines();
+      });
+
+      // إنشاء مجلة
+      magazineForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // إظهار المحمل وإخفاء الأخطاء
+        loader.classList.remove('hidden');
+        error.classList.add('hidden');
+
+        // الحصول على بيانات النموذج
+        const title = document.getElementById('title').value.trim();
+        const author = document.getElementById('author').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const installation = document.getElementById('installation').value.trim();
+        const usage = document.getElementById('usage').value.trim();
+        const contributing = document.getElementById('contributing').value.trim();
+        const license = document.getElementById('license').value;
+        const icon = document.getElementById('icon').files[0];
+        const banner = document.getElementById('banner').files[0];
+
+        // التحقق من صحة البيانات
+        if (!title || !author || !description || !installation || !usage || !contributing) {
+          showError(currentLanguage === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة.' : 'Please fill all required fields.');
+          loader.classList.add('hidden');
+          return;
+        }
+
+        // إنشاء محتوى ملف magazine.md
+        const magazineContent = `# ${title}
+
+**المؤلف:** ${author}
+
+**الوصف:** ${description}
+
+## جدول المحتويات
+1. [التثبيت](#التثبيت)
+2. [الاستخدام](#الاستخدام)
+3. [المساهمة](#المساهمة)
+4. [الترخيص](#الترخيص)
+
+## التثبيت
+${installation}
+
+## الاستخدام
+${usage}
+
+## المساهمة
+${contributing}
+
+## التراخيص
+هذا المشروع مرخص تحت [رخصة ${license}](LICENSE).
+
+### دروع المجلة
+![اسم المجلة](https://img.shields.io/badge/اسم_المجلة-${encodeURIComponent(title)}-blue)
+![الإصدار](https://img.shields.io/badge/الإصدار-1.0.0-green)
+![الترخيص](https://img.shields.io/badge/الترخيص-${encodeURIComponent(license)}-orange)
+![تم الإنشاء بواسطة](https://img.shields.io/badge/تم_الإنشاء_بواسطة-SAAEDY-brightgreen)
+
+### وصف الترخيص
+${getLicenseDescription(license)}
+`;
+
+        // إنشاء محتوى ملف License.ma بناءً على الترخيص المحدد
+        let licenseContent = '';
+        switch (license) {
+          case 'MIT':
+            licenseContent = `رخصة MIT\n\nحقوق النشر (c) ${new Date().getFullYear()} ${author}\n\nيُسمح بالاستخدام...`;
+            break;
+          case 'GPL':
+            licenseContent = `رخصة GNU العامة\nالإصدار 3، 29 يونيو 2007\n\nحقوق النشر (C) ${new Date().getFullYear()} ${author}\n\nهذا البرنامج مجاني...`;
+            break;
+          case 'Apache':
+            licenseContent = `رخصة Apache\nالإصدار 2.0، يناير 2004\n\nحقوق النشر (c) ${new Date().getFullYear()} ${author}\n\nمرخص تحت رخصة Apache...`;
+            break;
+          case 'Magazine 1.0':
+            licenseContent = `رخصة Magazine 1.0\n\nحقوق النشر (c) ${new Date().getFullYear()} ${author}\n\nيُسمح بإنشاء مجلات باستخدام هذا الترخيص...`;
+            break;
+        }
+
+        // إنشاء محتوى ملف CONTRIBUTING.md
+        const contributingContent = `# كيفية المساهمة في المشروع\n\nنرحب بمساهماتك! يرجى اتباع الخطوات التالية:\n\n1. قم بعمل Fork للمشروع.\n2. أنشئ فرعًا جديدًا.\n3. قم بإجراء التغييرات.\n4. أرسل Pull Request.`;
+
+        // إنشاء روابط التنزيل
+        const magazineBlob = new Blob([magazineContent], { type: 'text/markdown' });
+        const licenseBlob = new Blob([licenseContent], { type: 'text/plain' });
+        const contributingBlob = new Blob([contributingContent], { type: 'text/markdown' });
+
+        const magazineUrl = URL.createObjectURL(magazineBlob);
+        const licenseUrl = URL.createObjectURL(licenseBlob);
+        const contributingUrl = URL.createObjectURL(contributingBlob);
+
+        downloadMagazine.href = magazineUrl;
+        downloadMagazine.download = 'magazine.md';
+
+        downloadLicense.href = licenseUrl;
+        downloadLicense.download = 'LICENSE';
+
+        downloadContributing.href = contributingUrl;
+        downloadContributing.download = 'CONTRIBUTING.md';
+
+        // إنشاء رابط المجلة
+        const magazineId = Date.now();
+        const magazineUrlLink = `https://state-ner.github.io/open-create-/SAAEDY.html?magazineId=${magazineId}`;
+        magazineLink.href = magazineUrlLink;
+        magazineLink.textContent = currentLanguage === 'ar' ? 'رابط المجلة' : 'Magazine Link';
+
+        // عرض معاينة الملفات
+        preview.innerHTML = `
+          <h4>${currentLanguage === 'ar' ? 'معاينة magazine.md:' : 'Preview magazine.md:'}</h4>
+          <pre>${magazineContent}</pre>
+          <h4>${currentLanguage === 'ar' ? 'معاينة LICENSE:' : 'Preview LICENSE:'}</h4>
+          <pre>${licenseContent}</pre>
+          <h4>${currentLanguage === 'ar' ? 'معاينة CONTRIBUTING.md:' : 'Preview CONTRIBUTING.md:'}</h4>
+          <pre>${contributingContent}</pre>
+        `;
+
+        // حفظ المجلة
+        const newMagazine = {
+          id: magazineId,
+          title,
+          author,
+          description,
+          installation,
+          usage,
+          contributing,
+          license,
+          icon: icon ? URL.createObjectURL(icon) : null,
+          banner: banner ? URL.createObjectURL(banner) : null,
+          userId: currentUser.id,
+          url: magazineUrlLink,
+          views: 0,
+          likes: 0,
+        };
+        magazines.push(newMagazine);
+        localStorage.setItem('magazines', JSON.stringify(magazines));
+
+        // إخفاء المحمل وإظهار النتائج
+        loader.classList.add('hidden');
+        output.classList.remove('hidden');
+        loadMagazines();
+      });
+
+      // تحميل المجلات
+      function loadMagazines() {
+        magazineList.innerHTML = '';
+        skeletonLoading.classList.remove('hidden');
+
+        setTimeout(() => {
+          const userMagazines = magazines.filter(m => m.userId === currentUser.id);
+
+          if (userMagazines.length === 0) {
+            magazineList.innerHTML = `<p>${currentLanguage === 'ar' ? 'لا توجد مجلات متاحة.' : 'No magazines available.'}</p>`;
+            skeletonLoading.classList.add('hidden');
+            return;
+          }
+
+          userMagazines.forEach(magazine => {
+            const magazineItem = document.createElement('div');
+            magazineItem.classList.add('magazine-item');
+            magazineItem.innerHTML = `
+              <h3>${magazine.title}</h3>
+              <p>${magazine.description}</p>
+              <a href="${magazine.url}" target="_blank">${currentLanguage === 'ar' ? 'رابط المجلة' : 'Magazine Link'}</a>
+              <button onclick="linkMagazine(${magazine.id})">${currentLanguage === 'ar' ? 'ربط بمجلة أخرى' : 'Link to another magazine'}</button>
+            `;
+            magazineList.appendChild(magazineItem);
+          });
+
+          skeletonLoading.classList.add('hidden');
+        }, 1000); // محاكاة تأخير التحميل
+      }
+
+      // عرض الإحصائيات
+      viewStatsButton.addEventListener('click', () => {
+        const userMagazines = magazines.filter(m => m.userId === currentUser.id);
+        const totalViews = userMagazines.reduce((sum, m) => sum + m.views, 0);
+        const totalLikes = userMagazines.reduce((sum, m) => sum + m.likes, 0);
+        alert(`${currentLanguage === 'ar' ? 'إجمالي المشاهدات:' : 'Total Views:'} ${totalViews}\n${currentLanguage === 'ar' ? 'إجمالي الإعجابات:' : 'Total Likes:'} ${totalLikes}`);
+      });
+
+      // طلب سحب
+      requestWithdrawalButton.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'تم إرسال طلب السحب بنجاح.' : 'Withdrawal request sent successfully.');
+      });
+
+      // طلب مساهمة
+      requestContributionButton.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'تم إرسال طلب المساهمة بنجاح.' : 'Contribution request sent successfully.');
+      });
+
+      // تقديم طلب التحقق
+      applyVerificationButton.addEventListener('click', () => {
+        if (currentUser.followers >= 5000) {
+          const passport = prompt(currentLanguage === 'ar' ? 'يرجى تحميل صورة من جواز السفر.' : 'Please upload a passport image.');
+          if (passport) {
+            currentUser.verified = true;
+            localStorage.setItem('users', JSON.stringify(users));
+            alert(currentLanguage === 'ar' ? 'تم تقديم طلب التحقق بنجاح.' : 'Verification request submitted successfully.');
+          }
+        } else {
+          alert(currentLanguage === 'ar' ? 'يجب أن يكون لديك 5,000 متابع على الأقل للتحقق.' : 'You must have at least 5,000 followers to verify.');
+        }
+      });
+
+      // عرض التحليلات
+      viewAnalyticsButton.addEventListener('click', () => {
+        const userMagazines = magazines.filter(m => m.userId === currentUser.id);
+        const totalViews = userMagazines.reduce((sum, m) => sum + m.views, 0);
+        const totalLikes = userMagazines.reduce((sum, m) => sum + m.likes, 0);
+        const totalShares = userMagazines.reduce((sum, m) => sum + (m.shares || 0), 0);
+        alert(`${currentLanguage === 'ar' ? 'إجمالي المشاهدات:' : 'Total Views:'} ${totalViews}\n${currentLanguage === 'ar' ? 'إجمالي الإعجابات:' : 'Total Likes:'} ${totalLikes}\n${currentLanguage === 'ar' ? 'إجمالي المشاركات:' : 'Total Shares:'} ${totalShares}`);
+      });
+
+      // المشاركة على تويتر
+      shareOnTwitter.addEventListener('click', () => {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(currentLanguage === 'ar' ? 'تحقق من هذه المجلة الرائعة!' : 'Check out this amazing magazine!');
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      });
+
+      // المشاركة على فيسبوك
+      shareOnFacebook.addEventListener('click', () => {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+      });
+
+      // المشاركة على لينكد إن
+      shareOnLinkedIn.addEventListener('click', () => {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(currentLanguage === 'ar' ? 'مجلة رائعة' : 'Amazing Magazine');
+        const summary = encodeURIComponent(currentLanguage === 'ar' ? 'تحقق من هذه المجلة الرائعة!' : 'Check out this amazing magazine!');
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
+      });
+
+      // إضافة محرر
+      addCollaborator.addEventListener('click', () => {
+        const email = prompt(currentLanguage === 'ar' ? 'أدخل بريد المحرر الإلكتروني:' : 'Enter the editor\'s email:');
+        if (email) {
+          alert(currentLanguage === 'ar' ? 'تمت إضافة المحرر بنجاح.' : 'Editor added successfully.');
+        }
+      });
+
+      // إعداد اشتراك مدفوع
+      setupSubscription.addEventListener('click', () => {
+        const amount = prompt(currentLanguage === 'ar' ? 'أدخل مبلغ الاشتراك الشهري:' : 'Enter the monthly subscription amount:');
+        if (amount) {
+          alert(currentLanguage === 'ar' ? 'تم إعداد الاشتراك المدفوع بنجاح.' : 'Paid subscription setup successfully.');
+        }
+      });
+
+      // البحث عن المجلات
+      searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query) {
+          const results = magazines.filter(m => m.title.includes(query) || m.author.includes(query));
+          if (results.length > 0) {
+            magazineList.innerHTML = '';
+            results.forEach(magazine => {
+              const magazineItem = document.createElement('div');
+              magazineItem.classList.add('magazine-item');
+              magazineItem.innerHTML = `
+                <h3>${magazine.title}</h3>
+                <p>${magazine.description}</p>
+                <a href="${magazine.url}" target="_blank">${currentLanguage === 'ar' ? 'رابط المجلة' : 'Magazine Link'}</a>
+              `;
+              magazineList.appendChild(magazineItem);
+            });
+          } else {
+            magazineList.innerHTML = `<p>${currentLanguage === 'ar' ? 'لم يتم العثور على نتائج.' : 'No results found.'}</p>`;
+          }
+        }
+      });
+
+      // عرض الإشعارات
+      viewNotifications.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'لا توجد إشعارات جديدة.' : 'No new notifications.');
+      });
+
+      // عرض التعليقات
+      viewComments.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'لا توجد تعليقات جديدة.' : 'No new comments.');
+      });
+
+      // تخصيص السمة
+      customizeTheme.addEventListener('click', () => {
+        const theme = prompt(currentLanguage === 'ar' ? 'أدخل اسم السمة:' : 'Enter the theme name:');
+        if (theme) {
+          alert(currentLanguage === 'ar' ? 'تم تطبيق السمة بنجاح.' : 'Theme applied successfully.');
+        }
+      });
+
+      // تصدير كـ PDF
+      exportAsPDF.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'تم تصدير المجلة كـ PDF.' : 'Magazine exported as PDF.');
+      });
+
+      // إدارة المستخدمين
+      manageUsers.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'قائمة المستخدمين:' : 'User List:');
+      });
+
+      // إدارة المجلات
+      manageMagazines.addEventListener('click', () => {
+        alert(currentLanguage === 'ar' ? 'قائمة المجلات:' : 'Magazine List:');
+      });
+
+      // عرض الأخطاء
+      function showError(message) {
+        error.textContent = message;
+        error.classList.remove('hidden');
+      }
+
+      // وصف الترخيص
+      function getLicenseDescription(license) {
+        switch (license) {
+          case 'MIT':
+            return currentLanguage === 'ar' ? 'رخصة MIT هي رخصة برمجية حرة تسمح بإعادة استخدام الكود لأي غرض، بما في ذلك الأغراض التجارية، مع الحفاظ على حقوق النشر وإشعار الترخيص.' : 'The MIT License is a free software license that allows code reuse for any purpose, including commercial purposes, while preserving copyright and license notice.';
+          case 'GPL':
+            return currentLanguage === 'ar' ? 'رخصة GNU العامة (GPL) هي رخصة برمجية حرة تضمن للمستخدمين الحرية في استخدام ودراسة وتعديل وتوزيع البرمجيات.' : 'The GNU General Public License (GPL) is a free software license that guarantees users the freedom to use, study, modify, and distribute software.';
+          case 'Apache':
+            return currentLanguage === 'ar' ? 'رخصة Apache هي رخصة برمجية حرة تسمح باستخدام الكود لأي غرض، مع الحفاظ على حقوق النشر وإشعار الترخيص.' : 'The Apache License is a free software license that allows code use for any purpose, while preserving copyright and license notice.';
+          case 'Magazine 1.0':
+            return currentLanguage === 'ar' ? 'رخصة Magazine 1.0 هي رخصة مخصصة لإنشاء المجلات، تسمح بإعادة استخدام المحتوى لأي غرض مع الحفاظ على حقوق النشر.' : 'The Magazine 1.0 License is a custom license for creating magazines, allowing content reuse for any purpose while preserving copyright.';
+          default:
+            return '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
